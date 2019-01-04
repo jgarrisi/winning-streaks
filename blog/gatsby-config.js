@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/winning-streaks",
   siteMetadata: {
     title: `2019 Habit Tracker`,
     author: `Josh Garrisi`,
