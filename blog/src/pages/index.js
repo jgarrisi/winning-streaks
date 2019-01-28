@@ -4,6 +4,7 @@ import { Link, graphql } from 'gatsby'
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
+import GoalChart from '../components/GoalChart'
 import { rhythm } from '../utils/typography'
 
 class BlogIndex extends React.Component {
@@ -11,6 +12,9 @@ class BlogIndex extends React.Component {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
+    const chartData = posts.map(post => {
+      return post.node.frontmatter
+    })
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -19,6 +23,7 @@ class BlogIndex extends React.Component {
           keywords={[`blog`, `gatsby`, `javascript`, `react`]}
         />
         <Bio />
+        <GoalChart posts={chartData} />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
@@ -60,7 +65,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "YYYY-MM-DD")
             title
             morningbrush
             eveningbrush
